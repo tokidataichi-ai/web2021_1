@@ -1,0 +1,21 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Show message</title>
+</head>
+<body>
+  <h2><%= row.name2 %>の作品</h2>
+  <table>
+     <% for( let row of data ) { %>
+        <tr>
+            
+            <td><%= row.name %></td>
+            <td>： </td>
+            <td><%= row.score %></td>
+            <td>点</td>
+        </tr>
+     <% } %>
+  </table>
+</body>
+</html>

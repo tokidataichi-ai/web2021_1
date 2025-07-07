@@ -5,13 +5,23 @@
   <title>Show message</title>
 </head>
 <body>
-  <h2>都道府県ごとの人口</h2>
+  <h2>アニメまとめ</h2>
+  <form action="/db">
+    <input type="checkbox" name="desc" score="desc">
+    <label for="desc">大きい順</label>
+    <input type="number" name="pop" score="pop">
+    <label for="pop">表示数</label>
+    <input type="submit" value="送信">
+  </form>
   <table>
       <% for( let row of data ) { %>
         <tr>
             <td><%= row.id %></td>
-            <td><a href="/db/<%= row.id %>"><%= row.都道府県 %></a></td>
-            <td><%= row.人口 %></td>
+            <td><%= row.name %></td>
+            <td>： </td>
+            <td><%= row.score %></td>
+            <td>点： </td>
+            <td><a href="/db/<%= row.name2 %>"><%= row.name2 %></a></td>
         </tr>
       <% } %>
   </table>
