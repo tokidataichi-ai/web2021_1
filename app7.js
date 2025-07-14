@@ -16,13 +16,16 @@ app.get("/", (req, res) => {
 
 app.get("/db", (req, res) => {
     let desc = "";
+    let pop=100;
     if( req.query.desc ) desc = " desc";
-    
+    if( req.query.pop ) pop = req.query.pop;
     let sql= `
-    select anime.id, anime.name, anime.score, genre.name as name2
+    select anime.id, anime.name, anime.score, genre.name as name2, genre.id as genreid
     from anime inner join genre
     on anime.genre_id=genre.id
+    order by score ` + desc + ` limit ` + pop + `;
     `
+    //console.log(sql);
 //order by "score" + desc + " limit " + req.query.pop + ";";//
 
     db.serialize( () => {
@@ -35,18 +38,20 @@ app.get("/db", (req, res) => {
     })
 })
 
-app.get("/db/:genre.name", (req, res) => {
+app.get("/db/:genreid", (req, res) => {
     let sql2=`
-    select anime.name, anime.score, genre.name as name2 
-    where name2=:genre.name
+    select anime.name, anime.score, anime.genre_id, genre.name as name2, genre.id as genreid
     from anime inner join genre 
-    on anime.genre_id=genre.id;
+    on anime.genre_id=genre.id
+    where genre_id=`+ req.params.genreid +`;
     `
+    console.log(sql2);
     db.serialize( () => {
         db.all(sql2, (error, row) => {
             if( error ) {
                 res.render('show', {mes:"エラーです"});
             }
+            console.log(row);
             res.render('db2', {data:row});
         })
     })

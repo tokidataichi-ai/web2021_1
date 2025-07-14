@@ -5,7 +5,7 @@
   <title>Show message</title>
 </head>
 <body>
-  <h2>おすすめアニメまとめ</h2>
+  <h2>アニメまとめ</h2>
   <form action="/db">
     <input type="checkbox" name="desc" score="desc">
     <label for="desc">スコア順</label>
@@ -13,17 +13,5 @@
     <label for="pop">表示数</label>
     <input type="submit" value="送信">
   </form>
-  <table>
-      <% for( let row of data ) { %>
-        <tr>
-            
-            <td><%= row.name %></td>
-            <td>： </td>
-            <td><%= row.score %></td>
-            <td>点： </td>
-            <td><a href="/db/<%= row.genreid %>"><%= row.name2 %></a></td>
-        </tr>
-      <% } %>
-  </table>
 </body>
 </html>
